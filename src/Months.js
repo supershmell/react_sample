@@ -1,5 +1,5 @@
 import React from 'react';
-import Users from './Users.js';
+import Month from './Month';
 
 class Months extends React.Component {
     constructor(props) {
@@ -14,7 +14,8 @@ class Months extends React.Component {
         const obj = this.props.usersWithMonthsList;
         for (let month in obj) {
             if (e.target.innerText === month) {
-                this.setState({ visible: true, usersList: obj[month] })
+                this.props.updateData(obj[month]);
+                this.setState({ visible: true, usersList: obj[month] });
             }
         }
     }
@@ -23,9 +24,10 @@ class Months extends React.Component {
 
     render() {
         const obj = this.props.usersWithMonthsList;
+        let color = '';
 
-        const monthItem = Object.keys(this.props.usersWithMonthsList).map((month) => {
-            let color = '';
+        return Object.keys(this.props.usersWithMonthsList).map((month) => {
+
             let usersListLength = obj[month].length;
 
             if (usersListLength < 3) {
@@ -51,20 +53,13 @@ class Months extends React.Component {
                 onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave}
                 key={month.toString()}>
-                {
-                    month
-                }
+
+                <Month name={month} />
             </p>
+
         }
 
         );
-
-        return (
-            <React.Fragment>
-                {monthItem}
-                {this.state.visible && <Users users={this.state.usersList} />}
-            </React.Fragment>
-        )
     }
 }
 

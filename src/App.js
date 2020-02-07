@@ -1,12 +1,14 @@
 import React from 'react';
 import Months from './Months.js';
+import Users from './Users.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       usersInfoList: [],
-      usersWithMonthsList: []
+      usersWithMonthsList: [],
+      userList: false
     };
   }
 
@@ -18,6 +20,8 @@ class App extends React.Component {
       })
       .catch(err => console.log('fetch error : ', err))
   }
+
+  updateData = value => this.setState({userList: value, isUserRender: true})
 
   sortList = (arr) => {
     arr.sort((a,b) => {
@@ -46,7 +50,8 @@ class App extends React.Component {
         letterSpacing: '2px',
         fontStyle: 'bold'
       }}>
-        <Months usersWithMonthsList={this.state.usersWithMonthsList} />
+        <Months usersWithMonthsList={this.state.usersWithMonthsList} updateData ={this.updateData} />
+         {this.state.isUserRender && <Users users={this.state.userList} />} 
       </div>
     )
   }

@@ -1,9 +1,10 @@
 import React from 'react';
 
 const Users = props => (
-    <div style={{ fontFamily: 'fantasy', fontSize: '1.4rem' }}>
+
+    <React.Fragment>
         {props.users.join('--')}
-    </div>
+    </React.Fragment>
 )
 
 export default Users;
